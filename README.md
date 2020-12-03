@@ -2,7 +2,7 @@
  Итоговый проект по Java. Семестр I
 
 ---
-[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)]
+[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
 
 <svg xmlns="http://www.w3.org/2000/svg" width="495" height="195" viewBox="0 0 495 195" fill="none">
     <style>
