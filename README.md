@@ -2,6 +2,7 @@
  Итоговый проект по Java. Семестр I
 
 ---
+[asd](https://github-readme-stats.vercel.app/api?username=anuraghazra)
 
 <svg xmlns="http://www.w3.org/2000/svg" width="495" height="195" viewBox="0 0 495 195" fill="none">
     <style>
