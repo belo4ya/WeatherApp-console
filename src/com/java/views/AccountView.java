@@ -1,18 +1,14 @@
 package com.java.views;
 
 public class AccountView {
-    String username;
 
-    public AccountView(String username) {
-        this.username = username;
-    }
+    public static void displayTitle() {
+        int len = 43;
+        String title = "My account";
+        String outline = "*".repeat(len);
+        String space = " ".repeat((len - title.length()) / 2 - 1);
+        String message = outline + "\n" + "*" + space + title + space + "*" + "\n" + outline;
 
-    public void header() {
-        System.out.print("+-----+");
-        System.out.print("          ");
-        System.out.print("+-----+");
-        System.out.print("| WCS |");
-        System.out.println("           Пользователь: " + username);
-        System.out.println("+-----+");
+        System.out.println(message);
     }
 }

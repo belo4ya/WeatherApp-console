@@ -61,18 +61,19 @@ public class DataBase {
     }
 
     public User getUser(String username, String password) throws WrongPasswordException {
-        User user = new User(username, password);
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
 
         String query = String.format(
-                "select `id`, `username`, `password`, `city`, `service_id` " +
+                "select `username`, `password`, `city`, `service_id` " +
                 "from `users` " +
                 "where `username` = '%s'",
-                username
+                user.getUsername()
         );
 
         try {
             rs = stmt.executeQuery(query);
-            user.setId(rs.getInt("id"));
             user.setCity(rs.getString("city"));
             user.setServiceId(rs.getInt("service_id"));
 
