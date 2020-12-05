@@ -1,5 +1,8 @@
 package com.java.controllers;
 
+import com.java.exceptions.CityNotExistException;
+import com.java.models.DataBase;
+import com.java.views.AccountView;
 import com.java.views.AuthorizationView;
 import com.java.views.InvalidInputView;
 import com.java.views.Menu;
@@ -45,6 +48,18 @@ public class InputController {
         }
 
         return n;
+    }
+
+    public static String cityInput() {
+        AccountView.displayCityInput();
+        String city = in.nextLine();
+        try {
+            city = DataBase.getInstance().getCity(city);
+        } catch (CityNotExistException e) {
+            System.out.println("Неправильный город");
+            return cityInput();
+        }
+        return city;
     }
 
     private static boolean validate(String str) {

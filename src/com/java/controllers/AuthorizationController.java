@@ -9,7 +9,7 @@ import com.java.views.ScreenSpacer;
 
 public class AuthorizationController {
 
-    public static User authorize(DataBase db) {
+    public static User authorize() {
         User user;
         AuthorizationView.displayTitle();
         ScreenSpacer.smallIndent();
@@ -18,11 +18,11 @@ public class AuthorizationController {
         String password = InputController.passwordInput();
 
         try {
-            user = db.getUser(username, password);
+            user = DataBase.getInstance().getUser(username, password);
         } catch (WrongPasswordException e) {
             ScreenSpacer.safelyClean();
             InvalidInputView.invalidPassword("", true);
-            return authorize(db);
+            return authorize();
         }
 
         return user;

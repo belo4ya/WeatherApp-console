@@ -31,4 +31,12 @@ public class AccountView {
         displayWeatherService(weatherService);
     }
 
+    public static void displayCityInput() {
+        System.out.print("Enter city name:");
+    }
+
+    public static void displayInputPrompt() {
+        System.out.print(">>> ");
+    }
+
 }

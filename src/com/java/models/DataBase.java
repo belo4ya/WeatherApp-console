@@ -46,8 +46,8 @@ public class DataBase {
         String query = String.format(
                 "select `owm_latitude`, `owm_longitude` " +
                 "from `owm_city_list` " +
-                "where `owm_city_name` = '%s'",
-                cityName
+                "where `owm_city_name` like '%s%s%s'",
+                "%", cityName, "%"
         );
 
         try {
@@ -58,6 +58,23 @@ public class DataBase {
             throw new CityNotExistException();  // город не найден
         }
         return new Double[]{lat, lon};
+    }
+
+    public String getCity(String cityName) throws CityNotExistException {
+        String query = String.format(
+                "select `owm_city_name` " +
+                        "from `owm_city_list` " +
+                        "where `owm_city_name` like '%s%s%s'",
+                "%", cityName, "%"
+        );
+
+        try {
+            rs = stmt.executeQuery(query);
+            cityName = rs.getString("owm_city_name");
+        } catch (SQLException e) {
+            throw new CityNotExistException();  // город не найден
+        }
+        return cityName;
     }
 
     public User getUser(String username, String password) throws WrongPasswordException {
