@@ -1,6 +1,7 @@
 package com.java.models;
 
 import com.java.exceptions.CityNotExistException;
+import com.java.exceptions.ServiceNotExistException;
 import com.java.exceptions.WrongPasswordException;
 
 import java.sql.*;
@@ -55,7 +56,7 @@ public class DataBase {
             lat = rs.getDouble("owm_latitude");
             lon = rs.getDouble("owm_longitude");
         } catch (SQLException e) {
-            throw new CityNotExistException();  // город не найден
+            throw new CityNotExistException();
         }
         return new Double[]{lat, lon};
     }
@@ -72,9 +73,27 @@ public class DataBase {
             rs = stmt.executeQuery(query);
             cityName = rs.getString("owm_city_name");
         } catch (SQLException e) {
-            throw new CityNotExistException();  // город не найден
+            throw new CityNotExistException();
         }
         return cityName;
+    }
+
+    public String getService(Integer id) throws ServiceNotExistException {
+        String serviceName;
+        String query = String.format(
+                "select `service_name` " +
+                        "from `weather_services` " +
+                        "where `id` = '%s'",
+                id
+        );
+
+        try {
+            rs = stmt.executeQuery(query);
+            serviceName = rs.getString("service_name");
+        } catch (SQLException e) {
+            throw new ServiceNotExistException();
+        }
+        return serviceName;
     }
 
     public User getUser(String username, String password) throws WrongPasswordException {
@@ -97,9 +116,9 @@ public class DataBase {
             if (user.getPassword().equals(rs.getString("password"))) {
                 return user;
             } else
-                throw new WrongPasswordException();  // пароли не совпадают
+                throw new WrongPasswordException();
         } catch (SQLException e) {
-            createUser(user);  // неявная регистрация
+            createUser(user);
         }
 
         return user;

@@ -3,6 +3,6 @@ package com.java.exceptions;
 public class CityNotExistException extends Exception {
 
     public CityNotExistException() {
-        super("Города нет в базе данных");
+        super("The city is not in the database");
     }
 }

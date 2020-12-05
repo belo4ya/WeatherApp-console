@@ -56,7 +56,7 @@ public class InputController {
         try {
             city = DataBase.getInstance().getCity(city);
         } catch (CityNotExistException e) {
-            System.out.println("Неправильный город");
+            InvalidInputView.invalidCityName(true);
             return cityInput();
         }
         return city;

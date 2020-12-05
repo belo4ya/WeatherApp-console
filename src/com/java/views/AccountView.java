@@ -32,7 +32,7 @@ public class AccountView {
     }
 
     public static void displayCityInput() {
-        System.out.print("Enter city name:");
+        System.out.print("Enter city name: ");
     }
 
     public static void displayInputPrompt() {

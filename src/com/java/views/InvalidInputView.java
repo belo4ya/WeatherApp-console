@@ -29,4 +29,12 @@ public class InvalidInputView {
         ScreenSpacer.smallIndent();
     }
 
+    public static void invalidCityName(boolean repeat) {
+        System.out.println("I couldn't find such a city.");
+        if (repeat) {
+            System.out.println(REPEAT);
+        }
+        ScreenSpacer.smallIndent();
+    }
+
 }

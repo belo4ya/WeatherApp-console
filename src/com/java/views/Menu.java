@@ -6,9 +6,23 @@ public class Menu {
     public static final HashMap<Commands, String> caption = new HashMap<Commands, String>(){{
         put(Commands.logOut, "Log out");
         put(Commands.setCity, "Set city");
-        put(Commands.setService, "Set weather service");
         put(Commands.updateCity, "Change city");
+        put(Commands.setService, "Set weather service");
         put(Commands.updateService, "Change weather service");
+
+        put(Commands.service1Name, "Open Weather");
+        put(Commands.service2Name, "Яндекс.Погода");
+        put(Commands.service3Name, "Ещё погода");
+
+        put(Commands.service1Current, "Current weather");
+        put(Commands.service1Minute, "Minute forecast for 1 hour");
+        put(Commands.service1Hourly, "Hourly forecast for 48 hours");
+        put(Commands.service1Daily, "Daily forecast for 7 days");
+
+        put(Commands.service2Current, "Current weather");
+        put(Commands.service2Hourly, "Hourly forecast for 24 hours");
+        put(Commands.service2Part, "Forecasts by part of day");
+        put(Commands.service2Daily, "Daily forecast for 7 days");
     }};
     private final HashMap<Integer, Commands> menu = new HashMap<Integer, Commands>();
     private int key = 1;
@@ -53,8 +67,22 @@ public class Menu {
     public enum Commands {
         logOut,
         setCity,
-        setService,
         updateCity,
-        updateService
+        setService,
+        updateService,
+
+        service1Name,
+        service2Name,
+        service3Name,
+
+        service1Current,
+        service1Minute,  // 1 hour
+        service1Hourly,  // 48 hours
+        service1Daily,  // 7 days
+
+        service2Current,
+        service2Hourly,  // 24 hours
+        service2Part,  // night, day, evening ...
+        service2Daily,  // 7 days
     }
 }
