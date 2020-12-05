@@ -1,6 +1,5 @@
 package com.java.controllers;
 
-import com.java.exceptions.WrongPasswordException;
 import com.java.models.DataBase;
 import com.java.models.User;
 import com.java.views.*;
@@ -17,8 +16,10 @@ public class Main {
         // авторизация
         User user = AuthorizationController.authorize(db);
 
-        System.out.println(user);
-
+        // личный кабинет
+        ScreenSpacer.safelyClean();
+        AccountController account = new AccountController(user);
+        account.logIn();
 
     }
 }

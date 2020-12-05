@@ -2,6 +2,7 @@ package com.java.controllers;
 
 import com.java.views.AuthorizationView;
 import com.java.views.InvalidInputView;
+import com.java.views.Menu;
 
 import java.util.Scanner;
 
@@ -26,6 +27,24 @@ public class InputController {
             return passwordInput();
         }
         return password;
+    }
+
+    public static int menuItemInput(Menu menu) {
+        int n;
+        menu.displayInputPrompt();
+
+        try {
+            n = Integer.parseInt(in.nextLine());
+        } catch (NumberFormatException e) {
+            InvalidInputView.invalidMenuItem(true);
+            return menuItemInput(menu);
+        }
+        if (menu.get(n) == null) {
+            InvalidInputView.invalidMenuItem(true);
+            return menuItemInput(menu);
+        }
+
+        return n;
     }
 
     private static boolean validate(String str) {
