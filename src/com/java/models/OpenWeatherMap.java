@@ -14,6 +14,7 @@ public class OpenWeatherMap {
     private final String apiUrl = "https://api.openweathermap.org/data/2.5/onecall";
     private HttpRequester requester = null;
     private Date lastRequest = null;
+    private String lastCity = null;
     private JsonNode mainNode = null;
     private JsonNode currentNode = null;
     private JsonNode hourlyNode = null;
@@ -49,7 +50,7 @@ public class OpenWeatherMap {
     public ArrayList<Weather> getHourly(String city) throws ApiException, CityNotExistException, IOException {
         update(city);
         ArrayList<Weather> weatherList = new ArrayList<>();
-        Iterator<JsonNode> elements = hourlyNode.get("hourly").elements();
+        Iterator<JsonNode> elements = hourlyNode.elements();
         while (elements.hasNext()) {
             Weather weather = new Weather();
             JsonNode node = elements.next();
@@ -62,6 +63,8 @@ public class OpenWeatherMap {
             weather.setWindSpeed(node.get("wind_speed").asDouble());
             weather.setWindDeg(node.get("wind_deg").asInt());
             weather.setDescription(node.get("weather").elements().next().get("description").asText());
+
+            weatherList.add(weather);
         }
 
         return weatherList;
@@ -70,13 +73,37 @@ public class OpenWeatherMap {
     public ArrayList<Weather> getDaily(String city) throws ApiException, CityNotExistException, IOException {
         update(city);
         ArrayList<Weather> weatherList = new ArrayList<>();
+        Iterator<JsonNode> elements = dailyNode.elements();
+        while (elements.hasNext()) {
+            Weather weather = new Weather();
+            JsonNode node = elements.next();
 
+            weather.setDateTime(node.get("dt").asLong());
+            JsonNode temp = node.get("temp");
+            weather.setDayTemp(temp.get("day").asDouble());
+            weather.setDayTemp(temp.get("night").asDouble());
+            weather.setDayTemp(temp.get("eve").asDouble());
+            weather.setDayTemp(temp.get("morn").asDouble());
+            JsonNode feelsLike = node.get("feels_like");
+            weather.setDayTemp(feelsLike.get("day").asDouble());
+            weather.setDayTemp(feelsLike.get("night").asDouble());
+            weather.setDayTemp(feelsLike.get("eve").asDouble());
+            weather.setDayTemp(feelsLike.get("morn").asDouble());
+            weather.setPressure(node.get("pressure").asDouble());
+            weather.setHumidity(node.get("humidity").asInt());
+            weather.setWindSpeed(node.get("wind_speed").asDouble());
+            weather.setWindDeg(node.get("wind_deg").asInt());
+            weather.setDescription(node.get("weather").elements().next().get("description").asText());
+
+            weatherList.add(weather);
+        }
 
         return weatherList;
     }
 
     private void update(String city) throws ApiException, CityNotExistException, IOException {
-        if (mainNode == null || lastRequest == null || new Date().getTime() - lastRequest.getTime() > 1) {
+        if (mainNode == null || lastRequest == null || lastCity == null ||
+                !lastCity.equalsIgnoreCase(city) || new Date().getTime() - lastRequest.getTime() > 1000) {
             Double[] coords = DataBase.getInstance().getCoordsByCity(city);
             String lat = coords[0].toString();
             String lon = coords[1].toString();
@@ -105,6 +132,7 @@ public class OpenWeatherMap {
             hourlyNode = mainNode.get("hourly");
             dailyNode = mainNode.get("daily");
 
+            lastCity = city;
             lastRequest = new Date();
         }
     }

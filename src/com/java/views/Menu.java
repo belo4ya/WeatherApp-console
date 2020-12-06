@@ -12,7 +12,6 @@ public class Menu {
 
         put(Commands.service1Name, "Open Weather");
         put(Commands.service2Name, "Яндекс.Погода");
-        put(Commands.service3Name, "Ещё погода");
 
         put(Commands.service1Current, "Current weather");
         put(Commands.service1Hourly, "Hourly forecast for 48 hours");
@@ -59,6 +58,10 @@ public class Menu {
         System.out.println(menuString);
     }
 
+    public void backToMainView() {
+        System.out.println("Press ENTER to return to the main menu.");
+    }
+
     public void displayInputPrompt() {
         System.out.print(">>> ");
     }
@@ -72,7 +75,6 @@ public class Menu {
 
         service1Name,
         service2Name,
-        service3Name,
 
         service1Current,
         service1Hourly,  // 48 hours

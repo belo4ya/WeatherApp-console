@@ -11,6 +11,15 @@ public class Weather {
     private int windDeg;  // degrees
     private String description;
 
+    private double dayTemp;  // Celsius
+    private double nightTemp;  // Celsius
+    private double eveTemp;  // Celsius
+    private double mornTemp;  // Celsius
+    private double dayFeelsLike;  // Celsius
+    private double nightFeelsLike;  // Celsius
+    private double eveFeelsLike;  // Celsius
+    private double mornFeelsLike;  // Celsius
+
     public long getDateTime() {
         return dateTime;
     }
@@ -73,6 +82,70 @@ public class Weather {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getDayTemp() {
+        return dayTemp;
+    }
+
+    public void setDayTemp(double dayTemp) {
+        this.dayTemp = dayTemp;
+    }
+
+    public double getNightTemp() {
+        return nightTemp;
+    }
+
+    public void setNightTemp(double nightTemp) {
+        this.nightTemp = nightTemp;
+    }
+
+    public double getEveTemp() {
+        return eveTemp;
+    }
+
+    public void setEveTemp(double eveTemp) {
+        this.eveTemp = eveTemp;
+    }
+
+    public double getMornTemp() {
+        return mornTemp;
+    }
+
+    public void setMornTemp(double mornTemp) {
+        this.mornTemp = mornTemp;
+    }
+
+    public double getDayFeelsLike() {
+        return dayFeelsLike;
+    }
+
+    public void setDayFeelsLike(double dayFeelsLike) {
+        this.dayFeelsLike = dayFeelsLike;
+    }
+
+    public double getNightFeelsLike() {
+        return nightFeelsLike;
+    }
+
+    public void setNightFeelsLike(double nightFeelsLike) {
+        this.nightFeelsLike = nightFeelsLike;
+    }
+
+    public double getEveFeelsLike() {
+        return eveFeelsLike;
+    }
+
+    public void setEveFeelsLike(double eveFeelsLike) {
+        this.eveFeelsLike = eveFeelsLike;
+    }
+
+    public double getMornFeelsLike() {
+        return mornFeelsLike;
+    }
+
+    public void setMornFeelsLike(double mornFeelsLike) {
+        this.mornFeelsLike = mornFeelsLike;
     }
 
     @Override
