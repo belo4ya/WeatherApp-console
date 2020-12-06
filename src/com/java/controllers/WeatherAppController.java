@@ -3,9 +3,9 @@ package com.java.controllers;
 import com.java.models.User;
 import com.java.views.*;
 
-public class Main {
+public class WeatherAppController {
 
-    public static void main(String[] args) {
+    public static void run() {
         // начало
         StartView.displayTitle();
         ScreenSpacer.smallIndent();
