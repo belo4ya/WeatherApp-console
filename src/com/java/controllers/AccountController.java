@@ -135,7 +135,7 @@ public class AccountController {
     }
 
     public void displayService1Current() {
-        Weather weather = null;
+        Weather weather;
         try {
             weather = OpenWeatherMap.getInstance().getCurrent(user.getCity());
         } catch (ApiException | CityNotExistException | IOException e) {
