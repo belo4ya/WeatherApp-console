@@ -1,12 +1,17 @@
 package com.java.controllers;
 
+import com.java.exceptions.ApiException;
+import com.java.exceptions.CityNotExistException;
 import com.java.exceptions.ServiceNotExistException;
 import com.java.models.DataBase;
+import com.java.models.OpenWeatherMap;
 import com.java.models.User;
+import com.java.models.Weather;
 import com.java.views.AccountView;
 import com.java.views.Menu;
 import com.java.views.ScreenSpacer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class AccountController {
@@ -20,7 +25,6 @@ public class AccountController {
         put(Menu.Commands.updateService, AccountController.this::updateService);
 
         put(Menu.Commands.service1Current, AccountController.this::displayService1Current);
-        put(Menu.Commands.service1Minute, AccountController.this::displayService1Minute);
         put(Menu.Commands.service1Hourly, AccountController.this::displayService1Hourly);
         put(Menu.Commands.service1Daily, AccountController.this::displayService1Daily);
     }};
@@ -62,7 +66,6 @@ public class AccountController {
             Integer id = user.getServiceId();
             if (id == 1) {
                 menu.put(Menu.Commands.service1Current);
-                menu.put(Menu.Commands.service1Minute);
                 menu.put(Menu.Commands.service1Hourly);
                 menu.put(Menu.Commands.service1Daily);
             } else if (id == 2) {
@@ -133,11 +136,18 @@ public class AccountController {
     }
 
     public void displayService1Current() {
+        Weather weather = null;
+        try {
+            weather = OpenWeatherMap.getInstance().getCurrent(user.getCity());
+        } catch (ApiException | CityNotExistException | IOException e) {
+            e.printStackTrace();
+        }
 
-    }
+        ScreenSpacer.safelyClean();
+        displayHeader();
+        System.out.println(weather);
 
-    public void displayService1Minute() {
-
+        menuNavigate();
     }
 
     public void displayService1Hourly() {

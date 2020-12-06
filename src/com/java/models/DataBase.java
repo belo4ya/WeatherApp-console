@@ -41,8 +41,8 @@ public class DataBase {
     }
 
     public Double[] getCoordsByCity(String cityName) throws CityNotExistException {
-        Double lat = null;
-        Double lon = null;
+        double lat;
+        double lon;
 
         String query = String.format(
                 "select `owm_latitude`, `owm_longitude` " +

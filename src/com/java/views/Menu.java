@@ -15,7 +15,6 @@ public class Menu {
         put(Commands.service3Name, "Ещё погода");
 
         put(Commands.service1Current, "Current weather");
-        put(Commands.service1Minute, "Minute forecast for 1 hour");
         put(Commands.service1Hourly, "Hourly forecast for 48 hours");
         put(Commands.service1Daily, "Daily forecast for 7 days");
 
@@ -76,7 +75,6 @@ public class Menu {
         service3Name,
 
         service1Current,
-        service1Minute,  // 1 hour
         service1Hourly,  // 48 hours
         service1Daily,  // 7 days
 
