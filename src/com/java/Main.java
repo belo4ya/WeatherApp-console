@@ -1,7 +1,9 @@
 package com.java;
 
+import com.java.controllers.WeatherAppController;
+
 public class Main {
     public static void main(String[] args) {
-        com.java.controllers.Main.main(new String[]{});
+        WeatherAppController.run();
     }
 }
