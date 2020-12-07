@@ -1,12 +1,11 @@
 package com.java.views;
 
-public class AuthorizationView {
+public class AuthorizationView extends AbstractView {
 
     public static void displayTitle() {
-        int len = 43;
         String title = "Log in";
-        String outline = "*".repeat(len);
-        String space = " ".repeat((len - title.length()) / 2 - 1);
+        String outline = "*".repeat(displayWidth);
+        String space = " ".repeat((displayWidth - title.length()) / 2 - 1);
         String message = outline + "\n" + "*" + space + title + space + "*" + "\n" + outline;
         System.out.println(message);
     }

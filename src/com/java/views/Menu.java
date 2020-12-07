@@ -19,7 +19,6 @@ public class Menu {
 
         put(Commands.service2Current, "Current weather");
         put(Commands.service2Hourly, "Hourly forecast for 24 hours");
-        put(Commands.service2Part, "Forecasts by part of day");
         put(Commands.service2Daily, "Daily forecast for 7 days");
     }};
     private final HashMap<Integer, Commands> menu = new HashMap<Integer, Commands>();
@@ -82,7 +81,6 @@ public class Menu {
 
         service2Current,
         service2Hourly,  // 24 hours
-        service2Part,  // night, day, evening ...
         service2Daily,  // 7 days
     }
 }

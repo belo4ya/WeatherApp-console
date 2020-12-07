@@ -3,14 +3,11 @@ package com.java.controllers;
 import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
 import com.java.exceptions.ServiceNotExistException;
-import com.java.models.DataBase;
-import com.java.models.OpenWeatherMap;
-import com.java.models.User;
-import com.java.models.Weather;
+import com.java.models.*;
 import com.java.views.AccountView;
 import com.java.views.Menu;
 import com.java.views.ScreenSpacer;
-import com.java.views.Service1View;
+import com.java.views.WeatherView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +16,9 @@ import java.util.HashMap;
 public class AccountController {
     private User user;
     private final Menu menu = new Menu();
-    private final HashMap<Menu.Commands, MenuItem> addresses = new HashMap<Menu.Commands, MenuItem>(){{
+    private final OpenWeatherMap openWeatherMap = OpenWeatherMap.getInstance();
+    private final YandexWeather yandexWeather = YandexWeather.getInstance();
+    private final HashMap<Menu.Commands, MenuItem> addresses = new HashMap<>() {{
         put(Menu.Commands.logOut, AccountController.this::logOut);
         put(Menu.Commands.setCity, AccountController.this::setCity);
         put(Menu.Commands.setService, AccountController.this::setService);
@@ -73,7 +72,6 @@ public class AccountController {
             } else if (id == 2) {
                 menu.put(Menu.Commands.service2Current);
                 menu.put(Menu.Commands.service2Hourly);
-                menu.put(Menu.Commands.service2Part);
                 menu.put(Menu.Commands.service2Daily);
             }
 
@@ -99,6 +97,7 @@ public class AccountController {
         String city = InputController.cityInput();
         user.setCity(city);
         DataBase.getInstance().setCity(user);
+        ScreenSpacer.safelyClean();
         menuNavigate();
     }
 
@@ -115,6 +114,7 @@ public class AccountController {
         int item = InputController.menuItemInput(menu);
         user.setServiceId(item);
         DataBase.getInstance().setServiceId(user);
+        ScreenSpacer.safelyClean();
         menuNavigate();
     }
 
@@ -135,17 +135,17 @@ public class AccountController {
     }
 
     public void displayService1Current() {
-        Weather weather;
+        WeatherObject weatherObject;
         try {
-            weather = OpenWeatherMap.getInstance().getCurrent(user.getCity());
+            weatherObject = openWeatherMap.getCurrent(user.getCity());
         } catch (ApiException | CityNotExistException | IOException e) {
-            Service1View.badApiResponse();
+            WeatherView.badApiResponse();
             return;
         }
 
         ScreenSpacer.safelyClean();
         displayHeader();
-        Service1View.currentWeather(weather);
+        WeatherView.current(weatherObject);
         menu.backToMainView();
         InputController.in.nextLine();
         ScreenSpacer.safelyClean();
@@ -153,17 +153,17 @@ public class AccountController {
     }
 
     public void displayService1Hourly() {
-        ArrayList<Weather> weatherList;
+        ArrayList<WeatherObject> weatherObjectList;
         try {
-            weatherList = OpenWeatherMap.getInstance().getHourly(user.getCity());
+            weatherObjectList = openWeatherMap.getHourly(user.getCity());
         } catch (ApiException | CityNotExistException | IOException e) {
-            Service1View.badApiResponse();
+            WeatherView.badApiResponse();
             return;
         }
 
         ScreenSpacer.safelyClean();
         displayHeader();
-        Service1View.hourlyWeather(weatherList);
+        WeatherView.hourlyForecast(weatherObjectList);
         menu.backToMainView();
         InputController.in.nextLine();
         ScreenSpacer.safelyClean();
@@ -171,17 +171,17 @@ public class AccountController {
     }
 
     public void displayService1Daily() {
-        ArrayList<Weather> weatherList;
+        ArrayList<WeatherObject> weatherObjectList;
         try {
-            weatherList = OpenWeatherMap.getInstance().getDaily(user.getCity());
+            weatherObjectList = openWeatherMap.getDaily(user.getCity());
         } catch (ApiException | CityNotExistException | IOException e) {
-            Service1View.badApiResponse();
+            WeatherView.badApiResponse();
             return;
         }
 
         ScreenSpacer.safelyClean();
         displayHeader();
-        Service1View.dailyWeather(weatherList);
+        WeatherView.dailyForecast(weatherObjectList);
         menu.backToMainView();
         InputController.in.nextLine();
         ScreenSpacer.safelyClean();
