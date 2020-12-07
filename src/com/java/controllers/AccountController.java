@@ -25,9 +25,13 @@ public class AccountController {
         put(Menu.Commands.updateCity, AccountController.this::updateCity);
         put(Menu.Commands.updateService, AccountController.this::updateService);
 
-        put(Menu.Commands.service1Current, AccountController.this::displayService1Current);
-        put(Menu.Commands.service1Hourly, AccountController.this::displayService1Hourly);
-        put(Menu.Commands.service1Daily, AccountController.this::displayService1Daily);
+        put(Menu.Commands.openWeatherServiceCurrent, AccountController.this::displayCurrentWeather);
+        put(Menu.Commands.openWeatherServiceHourly, AccountController.this::displayHourlyForecast);
+        put(Menu.Commands.openWeatherServiceDaily, AccountController.this::displayDailyForecast);
+
+        put(Menu.Commands.yandexWeatherCurrent, AccountController.this::displayCurrentWeather);
+        put(Menu.Commands.yandexWeatherHourly, AccountController.this::displayHourlyForecast);
+        put(Menu.Commands.yandexWeatherDaily, AccountController.this::displayDailyForecast);
     }};
 
     public AccountController(User user) {
@@ -66,13 +70,13 @@ public class AccountController {
         if (user.getCity() != null && user.getServiceId() != null && user.getServiceId() != 0) {
             Integer id = user.getServiceId();
             if (id == 1) {
-                menu.put(Menu.Commands.service1Current);
-                menu.put(Menu.Commands.service1Hourly);
-                menu.put(Menu.Commands.service1Daily);
+                menu.put(Menu.Commands.openWeatherServiceCurrent);
+                menu.put(Menu.Commands.openWeatherServiceHourly);
+                menu.put(Menu.Commands.openWeatherServiceDaily);
             } else if (id == 2) {
-                menu.put(Menu.Commands.service2Current);
-                menu.put(Menu.Commands.service2Hourly);
-                menu.put(Menu.Commands.service2Daily);
+                menu.put(Menu.Commands.yandexWeatherCurrent);
+                menu.put(Menu.Commands.yandexWeatherHourly);
+                menu.put(Menu.Commands.yandexWeatherDaily);
             }
 
             menu.put(Menu.Commands.updateCity);
@@ -106,8 +110,8 @@ public class AccountController {
         displayHeader();
 
         menu.reset();
-        menu.put(Menu.Commands.service1Name);
-        menu.put(Menu.Commands.service2Name);
+        menu.put(Menu.Commands.openWeatherService);
+        menu.put(Menu.Commands.yandexWeather);
         menu.display();
 
         ScreenSpacer.smallIndent();
@@ -134,12 +138,22 @@ public class AccountController {
         menuNavigate();
     }
 
-    public void displayService1Current() {
-        WeatherObject weatherObject;
+    public void displayCurrentWeather() {
+        WeatherObject weatherObject = null;
         try {
-            weatherObject = openWeatherMap.getCurrent(user.getCity());
+            Integer id = user.getServiceId();
+            if (id == 1) {
+                weatherObject = openWeatherMap.getCurrent(user.getCity());
+            } else if (id == 2) {
+                weatherObject = yandexWeather.getCurrent(user.getCity());
+            }
         } catch (ApiException | CityNotExistException | IOException e) {
             WeatherView.badApiResponse();
+            return;
+        }
+
+        if (weatherObject == null) {  // TODO
+            System.out.println("Ошибка");
             return;
         }
 
@@ -152,36 +166,56 @@ public class AccountController {
         menuNavigate();
     }
 
-    public void displayService1Hourly() {
-        ArrayList<WeatherObject> weatherObjectList;
+    public void displayHourlyForecast() {
+        ArrayList<WeatherObject> weatherObjects = null;
         try {
-            weatherObjectList = openWeatherMap.getHourly(user.getCity());
+            Integer id = user.getServiceId();
+            if (id == 1) {
+                weatherObjects = openWeatherMap.getHourly(user.getCity());
+            } else if (id == 2) {
+                weatherObjects = yandexWeather.getHourly(user.getCity());
+            }
         } catch (ApiException | CityNotExistException | IOException e) {
             WeatherView.badApiResponse();
             return;
         }
 
+        if (weatherObjects == null) {  // TODO
+            System.out.println("Ошибка");
+            return;
+        }
+
         ScreenSpacer.safelyClean();
         displayHeader();
-        WeatherView.hourlyForecast(weatherObjectList);
+        WeatherView.hourlyForecast(weatherObjects);
         menu.backToMainView();
         InputController.in.nextLine();
         ScreenSpacer.safelyClean();
         menuNavigate();
     }
 
-    public void displayService1Daily() {
-        ArrayList<WeatherObject> weatherObjectList;
+    public void displayDailyForecast() {
+        ArrayList<WeatherObject> weatherObjects = null;
         try {
-            weatherObjectList = openWeatherMap.getDaily(user.getCity());
+            Integer id = user.getServiceId();
+            if (id == 1) {
+                weatherObjects = openWeatherMap.getDaily(user.getCity());
+            } else if (id == 2) {
+                weatherObjects = yandexWeather.getDaily(user.getCity());
+            }
         } catch (ApiException | CityNotExistException | IOException e) {
             WeatherView.badApiResponse();
             return;
         }
 
+        if (weatherObjects == null) {  // TODO
+            System.out.println("Ошибка");
+            return;
+        }
+
         ScreenSpacer.safelyClean();
         displayHeader();
-        WeatherView.dailyForecast(weatherObjectList);
+        WeatherView.dailyForecast(weatherObjects);
         menu.backToMainView();
         InputController.in.nextLine();
         ScreenSpacer.safelyClean();

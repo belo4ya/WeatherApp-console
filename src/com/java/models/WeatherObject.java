@@ -73,7 +73,7 @@ public class WeatherObject {
     }
 
     public void setWindDir(String windDir) {
-        this.windDir = windDir;
+        this.windDir = windDir.toUpperCase();
     }
 
     public String getDescription() {

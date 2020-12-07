@@ -49,12 +49,12 @@ public class WeatherView {
         System.out.println(card);
     }
 
-    public static void hourlyForecast(ArrayList<WeatherObject> weatherObjectList) {
+    public static void hourlyForecast(ArrayList<WeatherObject> weatherObjects) {
         ArrayList<String> dateRows = new ArrayList<>();
         ArrayList<String> descriptionRows = new ArrayList<>();
         ArrayList<String> tempRows = new ArrayList<>();
         ArrayList<String> separatorRows = new ArrayList<>();
-        for (WeatherObject weatherObject : weatherObjectList) {
+        for (WeatherObject weatherObject : weatherObjects) {
             int colSize = 22;
             String separator = "+-" + "-".repeat(colSize) + "-+";
             String placeholder = " ";
@@ -91,8 +91,8 @@ public class WeatherView {
         System.out.print("\n");
     }
 
-    public static void dailyForecast(ArrayList<WeatherObject> weatherObjectList) {
-        for (WeatherObject weatherObject : weatherObjectList) {
+    public static void dailyForecast(ArrayList<WeatherObject> weatherObjects) {
+        for (WeatherObject weatherObject : weatherObjects) {
             int colOne = 13;
             int colTwo = 11;
             int colThree = 11;

@@ -10,16 +10,16 @@ public class Menu {
         put(Commands.setService, "Set weather service");
         put(Commands.updateService, "Change weather service");
 
-        put(Commands.service1Name, "Open Weather");
-        put(Commands.service2Name, "Яндекс.Погода");
+        put(Commands.openWeatherService, "Open Weather");
+        put(Commands.yandexWeather, "Яндекс.Погода");
 
-        put(Commands.service1Current, "Current weather");
-        put(Commands.service1Hourly, "Hourly forecast for 48 hours");
-        put(Commands.service1Daily, "Daily forecast for 7 days");
+        put(Commands.openWeatherServiceCurrent, "Current weather");
+        put(Commands.openWeatherServiceHourly, "Hourly forecast for 48 hours");
+        put(Commands.openWeatherServiceDaily, "Daily forecast for 7 days");
 
-        put(Commands.service2Current, "Current weather");
-        put(Commands.service2Hourly, "Hourly forecast for 24 hours");
-        put(Commands.service2Daily, "Daily forecast for 7 days");
+        put(Commands.yandexWeatherCurrent, "Current weather");
+        put(Commands.yandexWeatherHourly, "Hourly forecast for 24 hours");
+        put(Commands.yandexWeatherDaily, "Daily forecast for 7 days");
     }};
     private final HashMap<Integer, Commands> menu = new HashMap<Integer, Commands>();
     private int key = 1;
@@ -72,15 +72,15 @@ public class Menu {
         setService,
         updateService,
 
-        service1Name,
-        service2Name,
+        openWeatherService,
+        yandexWeather,
 
-        service1Current,
-        service1Hourly,  // 48 hours
-        service1Daily,  // 7 days
+        openWeatherServiceCurrent,
+        openWeatherServiceHourly,  // 48 hours
+        openWeatherServiceDaily,  // 7 days
 
-        service2Current,
-        service2Hourly,  // 24 hours
-        service2Daily,  // 7 days
+        yandexWeatherCurrent,
+        yandexWeatherHourly,  // 24 hours
+        yandexWeatherDaily,  // 7 days
     }
 }

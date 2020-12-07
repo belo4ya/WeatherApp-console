@@ -1,7 +1,6 @@
 package com.java.models;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
 
@@ -23,6 +22,7 @@ public class OpenWeatherMap extends AbstractWeatherService {
         return instance;
     }
 
+    @Override
     public WeatherObject getCurrent(String city) throws ApiException, CityNotExistException, IOException {
         update(city);
         WeatherObject weatherObject = new WeatherObject();
@@ -39,9 +39,10 @@ public class OpenWeatherMap extends AbstractWeatherService {
         return weatherObject;
     }
 
+    @Override
     public ArrayList<WeatherObject> getHourly(String city) throws ApiException, CityNotExistException, IOException {
         update(city);
-        ArrayList<WeatherObject> weatherObjectList = new ArrayList<>();
+        ArrayList<WeatherObject> weatherObjects = new ArrayList<>();
         Iterator<JsonNode> elements = hourlyNode.elements();
         while (elements.hasNext()) {
             WeatherObject weatherObject = new WeatherObject();
@@ -56,15 +57,16 @@ public class OpenWeatherMap extends AbstractWeatherService {
             weatherObject.setWindDir(WeatherObject.windDegToDir(node.get("wind_deg").asInt()));
             weatherObject.setDescription(node.get("weather").elements().next().get("description").asText());
 
-            weatherObjectList.add(weatherObject);
+            weatherObjects.add(weatherObject);
         }
 
-        return weatherObjectList;
+        return weatherObjects;
     }
 
+    @Override
     public ArrayList<WeatherObject> getDaily(String city) throws ApiException, CityNotExistException, IOException {
         update(city);
-        ArrayList<WeatherObject> weatherObjectList = new ArrayList<>();
+        ArrayList<WeatherObject> weatherObjects = new ArrayList<>();
         Iterator<JsonNode> elements = dailyNode.elements();
         while (elements.hasNext()) {
             WeatherObject weatherObject = new WeatherObject();
@@ -87,10 +89,10 @@ public class OpenWeatherMap extends AbstractWeatherService {
             weatherObject.setWindDir(WeatherObject.windDegToDir(node.get("wind_deg").asInt()));
             weatherObject.setDescription(node.get("weather").elements().next().get("description").asText());
 
-            weatherObjectList.add(weatherObject);
+            weatherObjects.add(weatherObject);
         }
 
-        return weatherObjectList;
+        return weatherObjects;
     }
 
     @Override

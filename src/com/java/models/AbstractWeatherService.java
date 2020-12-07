@@ -6,6 +6,7 @@ import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -20,6 +21,12 @@ public abstract class AbstractWeatherService {
     protected JsonNode currentNode;
     protected JsonNode hourlyNode;
     protected JsonNode dailyNode;
+
+    public abstract WeatherObject getCurrent(String city) throws ApiException, CityNotExistException, IOException;
+
+    public abstract ArrayList<WeatherObject> getHourly(String city) throws ApiException, CityNotExistException, IOException;
+
+    public abstract ArrayList<WeatherObject> getDaily(String city) throws ApiException, CityNotExistException, IOException;
 
     protected abstract HashMap<String, String> getParams(String city) throws CityNotExistException;
 

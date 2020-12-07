@@ -15,7 +15,7 @@ public class InputController {
     public static String usernameInput() {
         AuthorizationView.displayUsernameInput();
         String username = in.nextLine();
-        if (!validate(username)) {
+        if (notValid(username)) {
             InvalidInputView.invalidUsername(true);
             return usernameInput();
         }
@@ -25,7 +25,7 @@ public class InputController {
     public static String passwordInput() {
         AuthorizationView.displayPasswordInput();
         String password = in.nextLine();
-        if (!validate(password)) {
+        if (notValid(password)) {
             InvalidInputView.invalidPassword("Password не должен содержать спецсимволы.", true);
             return passwordInput();
         }
@@ -62,13 +62,13 @@ public class InputController {
         return city;
     }
 
-    private static boolean validate(String str) {
+    private static boolean notValid(String str) {
         String validCharacters = "_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (char ch: str.toCharArray()) {
             if (validCharacters.indexOf(ch) == -1) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
