@@ -1,9 +1,10 @@
-package com.java.models;
+package com.java.models.weather;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
+import com.java.models.HttpRequester;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public abstract class AbstractWeatherService {
 
     protected abstract HashMap<String, String> getParams(String city) throws CityNotExistException;
 
+    protected abstract HashMap<String, String> getHeaders();
+
     protected abstract void setCurrentNode();
 
     protected abstract void setHourlyNode();
@@ -46,9 +49,15 @@ public abstract class AbstractWeatherService {
                 !lastCity.equalsIgnoreCase(city) || new Date().getTime() - lastRequest.getTime() > 10000) {
 
             HashMap<String, String> params = getParams(city);
+            HashMap<String, String> headers = getHeaders();
 
             try {
-                response = requester.get(apiUrl, params);
+                if (headers == null) {
+                    response = requester.get(apiUrl, params);
+                } else {
+                    response = requester.get(apiUrl, params, headers);
+                }
+
                 if (response == null) {
                     throw new ApiException();
                 }

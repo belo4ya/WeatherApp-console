@@ -1,8 +1,9 @@
-package com.java.models;
+package com.java.models.weather;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
+import com.java.models.DataBase;
 
 import java.io.IOException;
 import java.util.*;
@@ -73,16 +74,19 @@ public class OpenWeatherMap extends AbstractWeatherService {
             JsonNode node = elements.next();
 
             weatherObject.setDateTime(WeatherObject.secToMilli(node.get("dt").asLong()));
+
             JsonNode temp = node.get("temp");
             weatherObject.setDayTemp(temp.get("day").asDouble());
             weatherObject.setNightTemp(temp.get("night").asDouble());
             weatherObject.setEveTemp(temp.get("eve").asDouble());
             weatherObject.setMornTemp(temp.get("morn").asDouble());
+
             JsonNode feelsLike = node.get("feels_like");
             weatherObject.setDayFeelsLike(feelsLike.get("day").asDouble());
             weatherObject.setNightFeelsLike((feelsLike.get("night").asDouble()));
             weatherObject.setEveFeelsLike((feelsLike.get("eve").asDouble()));
             weatherObject.setMornFeelsLike((feelsLike.get("morn").asDouble()));
+
             weatherObject.setPressure(WeatherObject.pHaToMmHg(node.get("pressure").asDouble()));
             weatherObject.setHumidity(node.get("humidity").asInt());
             weatherObject.setWindSpeed(node.get("wind_speed").asDouble());
@@ -123,5 +127,10 @@ public class OpenWeatherMap extends AbstractWeatherService {
             put("units", "metric");
             put("appid", apiKey);
         }};
+    }
+
+    @Override
+    protected HashMap<String, String> getHeaders() {
+        return null;
     }
 }

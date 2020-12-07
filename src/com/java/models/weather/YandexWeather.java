@@ -1,8 +1,9 @@
-package com.java.models;
+package com.java.models.weather;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.java.exceptions.ApiException;
 import com.java.exceptions.CityNotExistException;
+import com.java.models.DataBase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class YandexWeather extends AbstractWeatherService {
             WeatherObject weatherObject = new WeatherObject();
             JsonNode node = elements.next();
 
-            weatherObject.setDateTime(WeatherObject.secToMilli(node.get("hours_ts").asLong()));
+            weatherObject.setDateTime(WeatherObject.secToMilli(node.get("hour_ts").asLong()));
             weatherObject.setTemp(node.get("temp").asDouble());
             weatherObject.setFeelsLike(node.get("feels_like").asDouble());
             weatherObject.setPressure(node.get("pressure_mm").asDouble());
@@ -74,7 +75,24 @@ public class YandexWeather extends AbstractWeatherService {
             WeatherObject weatherObject = new WeatherObject();
             JsonNode node = elements.next();
 
-            
+            weatherObject.setDateTime(WeatherObject.secToMilli(node.get("date_ts").asLong()));
+
+            JsonNode parts = node.get("parts");
+            weatherObject.setDayTemp(parts.get("day").get("temp_avg").asDouble());
+            weatherObject.setNightTemp(parts.get("night").get("temp_avg").asDouble());
+            weatherObject.setEveTemp(parts.get("evening").get("temp_avg").asDouble());
+            weatherObject.setMornTemp(parts.get("morning").get("temp_avg").asDouble());
+
+            weatherObject.setDayFeelsLike(parts.get("day").get("feels_like").asDouble());
+            weatherObject.setNightFeelsLike(parts.get("night").get("feels_like").asDouble());
+            weatherObject.setEveFeelsLike(parts.get("evening").get("feels_like").asDouble());
+            weatherObject.setMornFeelsLike(parts.get("morning").get("feels_like").asDouble());
+
+            weatherObject.setPressure(parts.get("day").get("pressure_mm").asDouble());
+            weatherObject.setHumidity(parts.get("day").get("humidity").asInt());
+            weatherObject.setWindSpeed(parts.get("day").get("wind_speed").asDouble());
+            weatherObject.setWindDir(parts.get("day").get("wind_dir").asText());
+            weatherObject.setDescription(parts.get("day").get("condition").asText());
 
             weatherObjects.add(weatherObject);
         }
@@ -109,6 +127,12 @@ public class YandexWeather extends AbstractWeatherService {
             put("lang", "en_US");
             put("limit", "7");
             put("hours", "true");
+        }};
+    }
+
+    @Override
+    protected HashMap<String, String> getHeaders() {
+        return new HashMap<>() {{
             put("X-Yandex-API-Key", apiKey);
         }};
     }

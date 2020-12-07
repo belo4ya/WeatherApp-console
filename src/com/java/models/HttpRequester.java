@@ -35,10 +35,35 @@ public class HttpRequester {
         return response.body();
     }
 
+    public String get(String url, Map<String, String> params, Map<String, String> headers) throws IOException, InterruptedException {
+        url = buildUrl(url, params);
+        HttpResponse<String> response = send(url, headers);
+
+        if (response.statusCode() != 200) {
+            throw new IOException();
+        }
+
+        return response.body();
+    }
+
     private HttpResponse<String> send(String url) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET().build();
+
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    private HttpResponse<String> send(String url, Map<String, String> headers) throws IOException, InterruptedException {
+        HttpRequest.Builder builder = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET();
+
+        for (Map.Entry<String, String> header: headers.entrySet()) {
+            builder.setHeader(header.getKey(), header.getValue());
+        }
+
+        HttpRequest request = builder.build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }

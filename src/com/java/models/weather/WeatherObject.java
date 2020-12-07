@@ -1,4 +1,4 @@
-package com.java.models;
+package com.java.models.weather;
 
 public class WeatherObject {
 

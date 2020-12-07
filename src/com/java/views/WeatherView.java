@@ -1,6 +1,6 @@
 package com.java.views;
 
-import com.java.models.WeatherObject;
+import com.java.models.weather.WeatherObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,11 +63,13 @@ public class WeatherView {
             Date dateTime = new Date(weatherObject.getDateTime());
             String description = String.format("%." + colSize + "s", weatherObject.getDescription());
             String temp = String.format("%.0f°С", weatherObject.getTemp());
-
-            separatorRows.add(separator);
-            dateRows.add("| " + centerAlignment(format.format(dateTime), colSize, placeholder) + " |");
-            descriptionRows.add("| " + centerAlignment(description, colSize, placeholder) + " |");
-            tempRows.add("| " + centerAlignment(temp, colSize, placeholder) + " |");
+            
+            if (dateTime.getTime() - new Date().getTime() >= 0) {
+                separatorRows.add(separator);
+                dateRows.add("| " + centerAlignment(format.format(dateTime), colSize, placeholder) + " |");
+                descriptionRows.add("| " + centerAlignment(description, colSize, placeholder) + " |");
+                tempRows.add("| " + centerAlignment(temp, colSize, placeholder) + " |");
+            }
         }
 
         printRow(dateRows, separatorRows);
