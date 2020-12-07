@@ -133,7 +133,7 @@ fabric.properties
 hs_err_pid*
 
 .gitattributes
-owm_city_list.txt
+src/resources/owm_city_list.txt
 
 # token
-src/com/java/controllers/Test.java
+src/com/belo4ya/controllers/Test.java
