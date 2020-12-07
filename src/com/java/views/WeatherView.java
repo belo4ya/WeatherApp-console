@@ -64,7 +64,7 @@ public class WeatherView {
             String description = String.format("%." + colSize + "s", weatherObject.getDescription());
             String temp = String.format("%.0f°С", weatherObject.getTemp());
             
-            if (dateTime.getTime() - new Date().getTime() >= 0) {
+            if (dateTime.getTime() - (new Date().getTime() - 3600000) >= 0) {
                 separatorRows.add(separator);
                 dateRows.add("| " + centerAlignment(format.format(dateTime), colSize, placeholder) + " |");
                 descriptionRows.add("| " + centerAlignment(description, colSize, placeholder) + " |");
