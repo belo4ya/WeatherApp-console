@@ -134,6 +134,3 @@ hs_err_pid*
 
 .gitattributes
 src/resources/owm_city_list.txt
-
-# token
-src/com/belo4ya/controllers/Test.java
