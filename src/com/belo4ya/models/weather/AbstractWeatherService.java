@@ -7,6 +7,7 @@ import com.belo4ya.exceptions.CityNotExistException;
 import com.belo4ya.models.HttpRequester;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,10 +15,10 @@ import java.util.HashMap;
 public abstract class AbstractWeatherService {
     protected String apiKey;
     protected String apiUrl;
-    private final HttpRequester requester = new HttpRequester();
-    private Date lastRequest;
-    private String lastCity;
-    private String response;
+    protected final HttpRequester requester = new HttpRequester();
+    protected Date lastRequest;
+    protected String lastCity;
+    protected String response;
     protected JsonNode mainNode;
     protected JsonNode currentNode;
     protected JsonNode hourlyNode;
@@ -31,13 +32,13 @@ public abstract class AbstractWeatherService {
 
     protected abstract HashMap<String, String> getParams(String city) throws CityNotExistException;
 
-    protected abstract HashMap<String, String> getHeaders();
+    protected abstract HashMap<String, String> getHeaders() throws UnsupportedEncodingException;
 
-    protected abstract void setCurrentNode();
+    protected abstract void setCurrentNode() throws IOException;
 
     protected abstract void setHourlyNode();
 
-    protected abstract void setDailyNode();
+    protected abstract void setDailyNode() throws IOException;
 
     protected void setMainNode() throws IOException {
         ObjectMapper mapper = new ObjectMapper();

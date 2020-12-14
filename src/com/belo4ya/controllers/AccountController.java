@@ -5,6 +5,7 @@ import com.belo4ya.exceptions.CityNotExistException;
 import com.belo4ya.exceptions.ServiceNotExistException;
 import com.belo4ya.models.*;
 import com.belo4ya.models.weather.OpenWeatherMap;
+import com.belo4ya.models.weather.WeatherBit;
 import com.belo4ya.models.weather.WeatherObject;
 import com.belo4ya.models.weather.YandexWeather;
 import com.belo4ya.views.AccountView;
@@ -21,6 +22,7 @@ public class AccountController {
     private final Menu menu = new Menu();
     private final OpenWeatherMap openWeatherMap = OpenWeatherMap.getInstance();
     private final YandexWeather yandexWeather = YandexWeather.getInstance();
+    private final WeatherBit weatherBit = WeatherBit.getInstance();
     private final HashMap<Menu.Commands, MenuItem> addresses = new HashMap<>() {{
         put(Menu.Commands.logOut, AccountController.this::logOut);
         put(Menu.Commands.setCity, AccountController.this::setCity);
@@ -35,6 +37,9 @@ public class AccountController {
         put(Menu.Commands.yandexWeatherCurrent, AccountController.this::displayCurrentWeather);
         put(Menu.Commands.yandexWeatherHourly, AccountController.this::displayHourlyForecast);
         put(Menu.Commands.yandexWeatherDaily, AccountController.this::displayDailyForecast);
+
+        put(Menu.Commands.weatherBitCurrent, AccountController.this::displayCurrentWeather);
+        put(Menu.Commands.weatherBitDaily, AccountController.this::displayDailyForecast);
     }};
 
     public AccountController(User user) {
@@ -80,6 +85,9 @@ public class AccountController {
                 menu.put(Menu.Commands.yandexWeatherCurrent);
                 menu.put(Menu.Commands.yandexWeatherHourly);
                 menu.put(Menu.Commands.yandexWeatherDaily);
+            } else if (id == 3) {
+                menu.put(Menu.Commands.weatherBitCurrent);
+                menu.put(Menu.Commands.weatherBitDaily);
             }
 
             menu.put(Menu.Commands.updateCity);
@@ -115,6 +123,7 @@ public class AccountController {
         menu.reset();
         menu.put(Menu.Commands.openWeatherService);
         menu.put(Menu.Commands.yandexWeather);
+        menu.put(Menu.Commands.weatherBit);
         menu.display();
 
         ScreenSpacer.smallIndent();
@@ -149,6 +158,8 @@ public class AccountController {
                 weatherObject = openWeatherMap.getCurrent(user.getCity());
             } else if (id == 2) {
                 weatherObject = yandexWeather.getCurrent(user.getCity());
+            } else if (id == 3) {
+                weatherObject = weatherBit.getCurrent(user.getCity());
             }
         } catch (ApiException | CityNotExistException | IOException e) {
             WeatherView.badApiResponse();
@@ -205,14 +216,16 @@ public class AccountController {
                 weatherObjects = openWeatherMap.getDaily(user.getCity());
             } else if (id == 2) {
                 weatherObjects = yandexWeather.getDaily(user.getCity());
+            } else if (id == 3) {
+                weatherObjects = weatherBit.getDaily(user.getCity());
             }
         } catch (ApiException | CityNotExistException | IOException e) {
             WeatherView.badApiResponse();
             return;
         }
 
-        if (weatherObjects == null) {  // TODO
-            System.out.println("Ошибка");
+        if (weatherObjects == null) {
+            WeatherView.badApiResponse();
             return;
         }
 

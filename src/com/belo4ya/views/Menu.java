@@ -4,14 +4,15 @@ import java.util.*;
 
 public class Menu {
     public static final HashMap<Commands, String> caption = new HashMap<Commands, String>(){{
-        put(Commands.logOut, "Log out");
-        put(Commands.setCity, "Set city");
-        put(Commands.updateCity, "Change city");
-        put(Commands.setService, "Set weather service");
-        put(Commands.updateService, "Change weather service");
+        put(Commands.logOut, Color.RED + "Log out" + Color.RESET);
+        put(Commands.setCity, Color.YELLOW + "Set city" + Color.RESET);
+        put(Commands.updateCity, Color.YELLOW + "Change city" + Color.RESET);
+        put(Commands.setService, Color.CYAN + "Set weather service" + Color.RESET);
+        put(Commands.updateService, Color.CYAN + "Change weather service" + Color.RESET);
 
         put(Commands.openWeatherService, "Open Weather");
         put(Commands.yandexWeather, "Яндекс.Погода");
+        put(Commands.weatherBit, "WeatherBit");
 
         put(Commands.openWeatherServiceCurrent, "Current weather");
         put(Commands.openWeatherServiceHourly, "Hourly forecast for 48 hours");
@@ -20,6 +21,9 @@ public class Menu {
         put(Commands.yandexWeatherCurrent, "Current weather");
         put(Commands.yandexWeatherHourly, "Hourly forecast for 24 hours");
         put(Commands.yandexWeatherDaily, "Daily forecast for 7 days");
+
+        put(Commands.weatherBitCurrent, "Current weather");
+        put(Commands.weatherBitDaily, "Daily forecast for 16 days");
     }};
     private final HashMap<Integer, Commands> menu = new HashMap<Integer, Commands>();
     private int key = 1;
@@ -62,7 +66,7 @@ public class Menu {
     }
 
     public void displayInputPrompt() {
-        System.out.print(">>> ");
+        System.out.print(Color.GREEN_BACKGROUND + ">>>" + Color.RESET + " ");
     }
 
     public enum Commands {
@@ -74,6 +78,7 @@ public class Menu {
 
         openWeatherService,
         yandexWeather,
+        weatherBit,
 
         openWeatherServiceCurrent,
         openWeatherServiceHourly,  // 48 hours
@@ -82,5 +87,8 @@ public class Menu {
         yandexWeatherCurrent,
         yandexWeatherHourly,  // 24 hours
         yandexWeatherDaily,  // 7 days
+
+        weatherBitCurrent,
+        weatherBitDaily,  // 16 days
     }
 }

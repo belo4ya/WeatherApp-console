@@ -12,15 +12,18 @@ public class AccountView extends AbstractView {
     }
 
     public static void displayUsername(String username) {
-        System.out.printf("%" + displayWidth + "s%n", String.format("Hello, %s", username));
+        System.out.printf("%" + (displayWidth + regularColorLen) + "s%n",
+                String.format("Hello, " + Color.WHITE + "%s" + Color.RESET, username));
     }
 
     public static void displayCity(String city) {
-        System.out.printf("%" + displayWidth + "s%n", String.format("Your city: %s", city));
+        System.out.printf("%" + (displayWidth + regularColorLen) + "s%n",
+                String.format("Your city: " + Color.BLUE + "%s" + Color.RESET, city));
     }
 
     public static void displayWeatherService(String weatherService) {
-        System.out.printf("%" + displayWidth + "s%n", String.format("Weather: %s", weatherService));
+        System.out.printf("%" + (displayWidth + regularColorLen) + "s%n",
+                String.format("Weather: " + Color.RED + "%s" + Color.RESET, weatherService));
     }
 
     public static void displayHeader(String username, String city, String weatherService) {

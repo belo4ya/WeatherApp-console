@@ -178,6 +178,10 @@ public class WeatherObject {
         }
     }
 
+    public static double mbToMmHg(double pres) {
+        return pres / 1.3332239;
+    }
+
     @Override
     public String toString() {
         return "Weather{" +
