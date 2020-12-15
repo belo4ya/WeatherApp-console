@@ -1,6 +1,5 @@
 package com.belo4ya.models;
 
-import com.belo4ya.Main;
 import com.belo4ya.exceptions.CityNotExistException;
 import com.belo4ya.exceptions.ServiceNotExistException;
 import com.belo4ya.exceptions.WrongPasswordException;
