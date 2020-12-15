@@ -3,4 +3,4 @@
  
 ## Демонстрация
 
-<img src="view/anim.gif" width="300">
+<img src="view/anim.gif" width="500">
