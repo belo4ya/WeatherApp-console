@@ -48,8 +48,8 @@ public class DataBase {
         String query = String.format(
                 "select `owm_latitude`, `owm_longitude` " +
                 "from `owm_city_list` " +
-                "where `owm_city_name` like '%s%s%s'",
-                "%", cityName, "%"
+                "where `owm_city_name` like '%s'",
+                cityName
         );
 
         try {
@@ -66,8 +66,8 @@ public class DataBase {
         String query = String.format(
                 "select `owm_city_name` " +
                         "from `owm_city_list` " +
-                        "where `owm_city_name` like '%s%s%s'",
-                "%", cityName, "%"
+                        "where `owm_city_name` like '%s'",
+                cityName
         );
 
         try {
