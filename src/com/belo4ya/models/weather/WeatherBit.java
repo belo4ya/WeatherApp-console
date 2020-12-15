@@ -48,7 +48,7 @@ public class WeatherBit extends AbstractWeatherService {
     }
 
     @Override
-    public ArrayList<WeatherObject> getHourly(String city) throws ApiException, CityNotExistException, IOException {
+    public ArrayList<WeatherObject> getHourly(String city) {
         return null;
     }
 
@@ -96,7 +96,6 @@ public class WeatherBit extends AbstractWeatherService {
             try {
                 currentResponse = requester.get(currentUrl, params);
                 dailyResponse = requester.get(dailyUrl, params);
-                System.out.println(currentResponse);
             } catch (IOException | InterruptedException e) {
                 throw new ApiException();
             }
@@ -129,7 +128,7 @@ public class WeatherBit extends AbstractWeatherService {
     }
 
     @Override
-    protected void setMainNode() throws IOException {
+    protected void setMainNode() {
 
     }
 

@@ -1,5 +1,6 @@
 package com.belo4ya.models;
 
+import com.belo4ya.Main;
 import com.belo4ya.exceptions.CityNotExistException;
 import com.belo4ya.exceptions.ServiceNotExistException;
 import com.belo4ya.exceptions.WrongPasswordException;
@@ -16,7 +17,8 @@ public class DataBase {
     private DataBase() {
         try {
             Class.forName("org.sqlite.JDBC");
-            con = DriverManager.getConnection("jdbc:sqlite:src/resources/weather.db");
+//            System.out.println(getClass().getClassLoader().getResource("weather.db"));
+            con = DriverManager.getConnection("jdbc:sqlite:" + getClass().getClassLoader().getResource("weather.db"));
             stmt = con.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

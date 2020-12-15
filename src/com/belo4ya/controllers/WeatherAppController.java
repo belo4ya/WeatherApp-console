@@ -6,16 +6,22 @@ import com.belo4ya.views.*;
 public class WeatherAppController {
 
     public static void run() {
-        // начало
-        StartView.displayTitle();
-        ScreenSpacer.smallIndent();
+        try {
+            // начало
+            StartView.displayTitle();
+            ScreenSpacer.smallIndent();
 
-        // авторизация
-        User user = AuthorizationController.authorize();
+            // авторизация
+            User user = AuthorizationController.authorize();
 
-        // личный кабинет
-        ScreenSpacer.safelyClean();
-        AccountController account = new AccountController(user);
-        account.menuNavigate();
+            // личный кабинет
+            ScreenSpacer.safelyClean();
+            AccountController account = new AccountController(user);
+            account.menuNavigate();
+        } catch (Exception e) {
+            System.out.println("Приложение не отвечает.");
+            System.out.println("Да, такое даже с word'ом бывает");
+            System.exit(1);
+        }
     }
 }
